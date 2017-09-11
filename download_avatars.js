@@ -14,13 +14,28 @@ function getRepoContributors(repoOwner,repoName,cb){
 	}
 
 	request.get(myObj,function(error,response,body){
-		console.log(body);
-	})
+		//handle an error from request
+		if(error) {
+			// call the callback funtion with error
+			callback(error);
+			return;
+		}
+
+		if(response && response.statusCode === 200) {
+			// request OK, Parse Data
+			var myVar = JSON.parse(body);
+			for (contributor of myVar){
+		console.log(contributor.avatar_url);
+	}
+	return;
+   }
+
+  });
 }
 
 
 getRepoContributors("jquery", "jquery", function(err, result) {
-console.log(JSON.parse(result));
+ 
   console.log("Errors:", err);
   console.log("Result:", result);
 });
