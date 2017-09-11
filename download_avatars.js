@@ -57,16 +57,12 @@ request.get(url)
 }
 
 if (term1 && term2 && term1 !== "" && term2 !== ""){
-
-
-getRepoContributors(term1, term2, function(err, result) {
-
- 
-  console.log("Errors:", err);
-  console.log("Result:", result);
-});
+	getRepoContributors(term1, term2, function(err, result) {
+		console.log("Errors:", err);
+  		console.log("Result:", result);
+  	});
 }
-else{
+else {
 	console.log("enter two valid terms");
 }
 console.log('Welcome to the GitHub Avatar Downloader!');
