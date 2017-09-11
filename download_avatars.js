@@ -1,6 +1,9 @@
 var request = require('request');
 var GITHUB_USER = "lukesiem"
 var GITHUB_TOKEN = "9ee477849f0ca896573f09ffe9bfc323dc80c0b2" 
+var filepath = "./Avatars/"
+var term1 = process.argv[2];
+var term2= process.argv[3];
 
 function getRepoContributors(repoOwner,repoName,cb){
 	var requestURL = 'https://' + GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/'
@@ -24,8 +27,9 @@ function getRepoContributors(repoOwner,repoName,cb){
 		if(response && response.statusCode === 200) {
 			// request OK, Parse Data
 			var myVar = JSON.parse(body);
+
 			for (contributor of myVar){
-		console.log(contributor.avatar_url);
+				downloadImageByURL(contributor.avatar_url,filepath + contributor.login );
 	}
 	return;
    }
@@ -33,8 +37,27 @@ function getRepoContributors(repoOwner,repoName,cb){
   });
 }
 
+function downloadImageByURL(url,filePath){
+	var fs = require('fs');
 
-getRepoContributors("jquery", "jquery", function(err, result) {
+request.get(url)              
+       .on('error', function (err) {                                   
+         throw err; 
+       })
+       .on('response', function (response) {  
+      console.log("download complete.")                        
+         console.log('Response Status Code: ', response.statusCode );
+       })
+       .pipe(fs.createWriteStream(filePath));
+
+       console.log("donwloading image...")  
+       	
+
+	
+}
+
+
+getRepoContributors(term1, term2, function(err, result) {
  
   console.log("Errors:", err);
   console.log("Result:", result);
