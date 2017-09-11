@@ -27,7 +27,7 @@ function getRepoContributors(repoOwner,repoName,cb){
 		if(response && response.statusCode === 200) {
 			// request OK, Parse Data
 			var myVar = JSON.parse(body);
-
+			// adds the file path and login name for each user avatar
 			for (contributor of myVar){
 				downloadImageByURL(contributor.avatar_url,filepath + contributor.login );
 	}
@@ -48,6 +48,7 @@ request.get(url)
       console.log("download complete.")                        
          console.log('Response Status Code: ', response.statusCode );
        })
+       //creates the image file in my Avatar folder
        .pipe(fs.createWriteStream(filePath));
 
        console.log("donwloading image...")  
@@ -55,6 +56,8 @@ request.get(url)
 
 	
 }
+
+//error messages addition. If the conditions are met the function will call. 
 
 if (term1 && term2 && term1 !== "" && term2 !== ""){
 	getRepoContributors(term1, term2, function(err, result) {
