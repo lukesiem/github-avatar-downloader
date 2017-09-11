@@ -3,7 +3,7 @@ var GITHUB_USER = "lukesiem"
 var GITHUB_TOKEN = "9ee477849f0ca896573f09ffe9bfc323dc80c0b2" 
 var filepath = "./Avatars/"
 var term1 = process.argv[2];
-var term2= process.argv[3];
+var term2 = process.argv[3];
 
 function getRepoContributors(repoOwner,repoName,cb){
 	var requestURL = 'https://' + GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/'
@@ -56,11 +56,18 @@ request.get(url)
 	
 }
 
+if (term1 && term2 && term1 !== "" && term2 !== ""){
+
 
 getRepoContributors(term1, term2, function(err, result) {
+
  
   console.log("Errors:", err);
   console.log("Result:", result);
 });
+}
+else{
+	console.log("enter two valid terms");
+}
 console.log('Welcome to the GitHub Avatar Downloader!');
 
